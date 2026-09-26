@@ -8,7 +8,7 @@ app = Flask(__name__)
 # Force CORS to allow your GitHub Pages origin explicitly
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-@app.route('/api/reverse', methods=['POST'])
+@app.route('/api/reverseword', methods=['POST'])
 def reverse_word():
     try:
         data = request.get_json()
