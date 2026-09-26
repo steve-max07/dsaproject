@@ -13,6 +13,7 @@ if __name__ == '__main__':
 
 
 app = Flask(__name__)
+app.run(host='0.0.0.0', port=port)
 CORS(app) # Connects safely with your simple HTML file
 
 @app.route('/api/reverseword', methods=['POST'])
