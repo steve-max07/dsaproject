@@ -3,45 +3,55 @@
 
 #define MAX 100
 
-// Define the global stack and top tracker
-char stack[MAX];
-int top = -1;
+// Define a Stack structure
+typedef struct {
+    char items[MAX];
+    int top;
+} Stack;
 
 // Function to push a character onto the stack
-void push(char ch) {
-    if (top >= MAX - 1) {
+void push(Stack *s, char ch) {
+    if (s->top >= MAX - 1) {
         printf("Stack Overflow\n");
         return;
     }
-    stack[++top] = ch;
+    s->items[++(s->top)] = ch;
 }
 
 // Function to pop a character from the stack
-char pop() {
-    if (top < 0) {
+char pop(Stack *s) {
+    if (s->top < 0) {
         printf("Stack Underflow\n");
         return '\0';
     }
-    return stack[top--];
+    return s->items[(s->top)--];
 }
 
-// Function to reverse the input word using the stack
+// Function to reverse the input word using the stack pointer
 void reverseWord(char word[]) {
     int len = strlen(word);
+    Stack myStack;
+    myStack.top = -1; // Initialize the stack locally
 
-    // Step 1: Push all characters of the word onto the stack
+    // Step 1: Push all characters onto the stack
     for (int i = 0; i < len; i++) {
-        push(word[i]);
+        push(&myStack, word[i]);
     }
 
-    // Step 2: Pop characters back into the array in reverse order
+    // Step 2: Pop characters back into the array
     for (int i = 0; i < len; i++) {
-        word[i] = pop();
+        word[i] = pop(&myStack);
     }
 }
 
 int main() {
-    char word[MAX] = "HelloWorld";
+    char word[MAX];
+
+    printf("Enter a word to reverse: ");
+    fgets(word, MAX, stdin);
+
+    // Remove the trailing newline character
+    word[strcspn(word, "\n")] = '\0';
 
     printf("Original word: %s\n", word);
 
