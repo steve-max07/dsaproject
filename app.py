@@ -15,7 +15,7 @@ def reverse_word():
         user_word = data.get('text', '')
 
         # Using explicit shell=False array execution for Linux compatibility
-        result = subprocess.run(['./reverse', user_word], capture_output=True, text=True, check=True)
+        result = subprocess.run(['./reverseword', user_word], capture_output=True, text=True, check=True)
         return jsonify({"reversedText": result.stdout.strip()})
         
     except Exception as e:
