@@ -1,29 +1,27 @@
-import os 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-
 import subprocess
-if __name__ == '__main__':
-    # Render assigns a dynamic port using the PORT environment variable.
-    # Defaulting to 10000 ensures it runs properly locally or on the cloud.
-    port = int(os.environ.get("PORT", 10000))
-    
-
+import os
 
 app = Flask(__name__)
-app.run(host='0.0.0.0', port=port)
-CORS(app) # Connects safely with your simple HTML file
 
-@app.route('/api/reverseword', methods=['POST'])
+# Force CORS to allow your GitHub Pages origin explicitly
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+@app.route('/api/reverse', methods=['POST'])
 def reverse_word():
-    data = request.get_json()
-    user_word = data.get('text', '')
+    try:
+        data = request.get_json()
+        user_word = data.get('text', '')
 
-    # Runs your compiled C binary file locally behind the scenes
-    # (Make sure you ran: gcc reverse.c -o reverse first)
-    result = subprocess.run(['./reverseword', user_word], capture_output=True, text=True)
-
-    return jsonify({"reversedText": result.stdout})
+        # Using explicit shell=False array execution for Linux compatibility
+        result = subprocess.run(['./reverse', user_word], capture_output=True, text=True, check=True)
+        return jsonify({"reversedText": result.stdout.strip()})
+        
+    except Exception as e:
+        # If the C program execution fails, send the error back to the browser safely
+        return jsonify({"reversedText": f"Backend Error: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
