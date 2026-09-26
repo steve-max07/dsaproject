@@ -19,11 +19,16 @@
     </div>
 
     <script>
-        // Change this URL later to your live deployed server address
-        const BACKEND_URL = "https://dsaproject-orsg.onrender.com";
+        // Targeting your explicit secure Render API endpoint
+        const BACKEND_URL = "https://onrender.com";
 
-        document.getElementById('reverseBtn').onclick = async function() {
-            const textValue = document.getElementById('wordInput').value.trim();
+        // Modern safe-binding event listener
+        document.getElementById('reverseBtn').addEventListener('click', async () => {
+            const inputField = document.getElementById('wordInput');
+            const outputDisplay = document.getElementById('outputText');
+            const resultBox = document.getElementById('resultSection');
+            
+            const textValue = inputField.value.trim();
 
             if (textValue === "") {
                 alert("Please type a word first.");
@@ -31,24 +36,32 @@
             }
 
             try {
-                // Send data to backend wrapper
+                // Perform a secure, explicit CORS network fetch request
                 const response = await fetch(BACKEND_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    mode: 'cors', 
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
                     body: JSON.stringify({ text: textValue })
                 });
 
+                if (!response.ok) {
+                    throw new Error(`Server responded with status: ${response.status}`);
+                }
+
                 const data = await response.json();
                 
-                // Show output received from the compiled C program
-                document.getElementById('outputText').innerText = data.reversedText;
-                document.getElementById('resultSection').style.display = 'block';
+                // Render the clean C stack output onto the screen
+                outputDisplay.innerText = data.reversedText;
+                resultBox.style.display = 'block';
 
             } catch (error) {
                 alert("Cannot connect to backend server.");
-                console.error(error);
+                console.error("Browser Console Diagnostics:", error);
             }
-        };
+        });
     </script>
 
 </body>
