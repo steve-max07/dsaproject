@@ -8,8 +8,6 @@ if __name__ == '__main__':
     # Defaulting to 10000 ensures it runs properly locally or on the cloud.
     port = int(os.environ.get("PORT", 10000))
     
-    # host='0.0.0.0' is required by Render to accept outside traffic
-    app.run(host='0.0.0.0', port=port)
 
 
 app = Flask(__name__)
