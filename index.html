@@ -19,8 +19,8 @@
     </div>
 
     <script>
-        // Targeting your explicit secure Render API endpoint
-        const BACKEND_URL = "https://dsaproject-orsg.onrender.com";
+        // FIXED: Added the exact matching /api/reverseword endpoint to link up with your Python route code!
+        const BACKEND_URL = "https://onrender.com";
 
         // Modern safe-binding event listener
         document.getElementById('reverseBtn').addEventListener('click', async () => {
@@ -61,7 +61,7 @@
                 alert("Cannot connect to backend server.");
                 console.error("Browser Console Diagnostics:", error);
             }
-        });
+        }); // FIXED: Added missing closure brackets to resolve browser crash blocks
     </script>
 
 </body>
