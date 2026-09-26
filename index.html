@@ -2,20 +2,125 @@
 <html>
 <head>
     <title>DSA Stack Project</title>
+    <style>
+        :root {
+            --bg-page: #f1f5f9;
+            --bg-card: #ffffff;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+            --success-bg: #f0fdf4;
+            --success-border: #bbf7d0;
+            --success-text: #166534;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .gui-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 35px 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            margin-bottom: 12px;
+            background-color: #f8fafc;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        button {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:active {
+            transform: scale(0.99);
+        }
+
+        .output-panel {
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-border);
+            color: var(--success-text);
+            padding: 14px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body bgcolor="lightblue">
 
-    <h2>Stack: Reverse a Word</h2>
-    <p>Full-Stack C Implementation</p>
+    <div class="gui-wrapper">
+        <h2>Stack: Reverse a Word</h2>
+        <p>Full-Stack C Implementation</p>
 
-    <!-- Form Controls -->
-    <input type="text" id="wordInput" placeholder="Enter a word here">
-    <button id="reverseBtn">Reverse Word</button>
+        <!-- Form Controls -->
+        <input type="text" id="wordInput" placeholder="Enter a word here">
+        <button id="reverseBtn">Reverse Word</button>
 
-    <!-- Output Section -->
-    <div id="resultSection" style="margin-top: 20px; display: none;">
-        <strong>Result:</strong>
-        <span id="outputText"></span>
+        <!-- Output Section -->
+        <div id="resultSection" class="output-panel" style="margin-top: 20px; display: none;">
+            <strong>Result:</strong>
+            <span id="outputText"></span>
+        </div>
     </div>
 
     <script>
