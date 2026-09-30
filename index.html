@@ -127,34 +127,36 @@
         // Change this URL later to your live deployed server address
         const BACKEND_URL = "https://dsaproject-orsg.onrender.com/api/reverseword";
 
-        document.getElementById('reverseBtn').onclick = async function() {
-            const textValue = document.getElementById('wordInput').value.trim();
+        // Wake up server immediately on page load
+    window.onload = () => fetch("https://dsaproject-orsg.onrender.com/api/reverseword");
 
-            if (textValue === "") {
-                alert("Please type a word first.");
-                return;
-            }
+    document.getElementById('reverseBtn').onclick = async function() {
+        const textValue = document.getElementById('wordInput').value.trim();
+        const btn = this;
 
-            try {
-                // Send data to backend wrapper
-                const response = await fetch(BACKEND_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: textValue })
-                });
+        if (!textValue) return alert("Please type a word first.");
 
-                const data = await response.json();
-                
-                // Show output received from the compiled C program
-                document.getElementById('outputText').innerText = data.reversedText;
-                document.getElementById('resultSection').style.display = 'block';
+        btn.innerText = "Connecting to server...";
+        btn.disabled = true;
 
-            } catch (error) {
-                alert("Cannot connect to backend server.");
-                console.error(error);
-            }
-        };
-    </script>
+        try {
+            const response = await fetch(BACKEND_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: textValue })
+            });
+            const data = await response.json();
+            
+            document.getElementById('outputText').innerText = data.reversedText;
+            document.getElementById('resultSection').style.display = 'block';
+        } catch (error) {
+            alert("Server is still waking up. Please try again in 5 seconds.");
+        } finally {
+            btn.innerText = "Reverse Word";
+            btn.disabled = false;
+        }
+    };
+</script>
 
 </body>
 </html>
