@@ -47,9 +47,9 @@ Input Word: "DATA"
 
 [Step 1: PUSH (Left-to-Right Scan)]       [Step 2: POP (Top-to-Bottom Read)]
    
-   |   A   | <-- top (Index 3)            |   A  | --> Returns 'A'
-   |   T   | (Index 2)                       |   T   | --> Returns 'T'
-   |   A   | (Index 1)                       |   A   | --> Returns 'A'
+   |   A   | <-- top (Index 3)               |   A  | --> Returns 'A'
+   |   T   | (Index 2)                       |   T  | --> Returns 'T'
+   |   A   | (Index 1)                       |   A  | --> Returns 'A'
    |   D   | (Index 0)                       |   D  | --> Returns 'D'
    +-------+                                 +-------+ 
   Empty Stack                               Empty Stack
